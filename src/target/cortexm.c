@@ -413,6 +413,7 @@ bool cortexm_probe(ADIv5_AP_t *ap)
 		PROBE(nrf51_probe);
 		break;
 	case AP_DESIGNER_ATMEL:
+		PROBE(samx7x_probe);
 		PROBE(sam4l_probe);
 		PROBE(samd_probe);
 		PROBE(samx5x_probe);
@@ -442,7 +443,8 @@ bool cortexm_probe(ADIv5_AP_t *ap)
 				PROBE(rp_probe);
 			PROBE(lpc11xx_probe); /* LPC8 */
 		} else if (ap->ap_partno == 0x4c3)  { /* Cortex-M3 ROM */
-			PROBE(stm32f1_probe); /* Care for STM32F1 clones */
+			PROBE(ch32f1_probe);
+			PROBE(stm32f1_probe); /* Care for other STM32F1 clones (?) */
 			PROBE(lpc15xx_probe); /* Thanks to JojoS for testing */
 		} else if (ap->ap_partno == 0x471)  { /* Cortex-M0 ROM */
 			PROBE(lpc11xx_probe); /* LPC24C11 */

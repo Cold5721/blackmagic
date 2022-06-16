@@ -40,9 +40,9 @@ LDFLAGS += -lsetupapi
 #https://github.com/dmlc/xgboost/issues/1945 indicates macosx as indicator
 else ifneq (filter, macosx darwin, $(SYS))
 SRC += serial_unix.c
-LDFLAGS += -lhidapi
+LDFLAGS += $(pkg-config --libs hidapi)
 LDFLAGS += -framework CoreFoundation
-CFLAGS += -Ihidapi/hidapi
+CFLAGS += -Ihidapi/hidapi $(pkg-config --cflags hidapi)
 HIDAPILIB = hidapi
 endif
 
@@ -73,7 +73,7 @@ ifneq ($(HOSTED_BMP_ONLY), 1)
 endif
 
 VPATH += platforms/pc
-SRC += timing.c cl_utils.c utils.c jtag_devs.c
+SRC += timing.c cl_utils.c utils.c
 SRC += bmp_remote.c remote_swdptap.c remote_jtagtap.c
 ifneq ($(HOSTED_BMP_ONLY), 1)
 SRC += bmp_libusb.c stlinkv2.c
@@ -83,3 +83,8 @@ else
 SRC += bmp_serial.c
 endif
 PC_HOSTED = 1
+
+all: blackmagic
+
+host_clean:
+	-$(Q)$(RM) blackmagic

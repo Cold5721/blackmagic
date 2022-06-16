@@ -136,6 +136,8 @@ struct target_s {
 	void (*priv_free)(void *);
 };
 
+void target_ram_map_free(target *t);
+void target_flash_map_free(target *t);
 void target_mem_map_free(target *t);
 void target_add_commands(target *t, const struct command_s *cmds, const char *name);
 void target_add_ram(target *t, target_addr start, uint32_t len);
@@ -173,6 +175,7 @@ int tc_system(target *t, target_addr cmd, size_t cmdlen);
 /* Probe for various targets.
  * Actual functions implemented in their respective drivers.
  */
+bool ch32f1_probe(target *t); // will catch all the clones
 bool gd32f1_probe(target *t);
 bool stm32f1_probe(target *t);
 bool stm32f4_probe(target *t);
@@ -187,6 +190,7 @@ bool lpc15xx_probe(target *t);
 bool lpc17xx_probe(target *t);
 bool lpc43xx_probe(target *t);
 bool lpc546xx_probe(target *t);
+bool samx7x_probe(target *t);
 bool sam3x_probe(target *t);
 bool sam4l_probe(target *t);
 bool nrf51_probe(target *t);
